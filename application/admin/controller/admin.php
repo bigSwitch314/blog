@@ -56,8 +56,6 @@ class Admin extends Controller
             }else{
                 $this->success('修改管理员失败！');
             }
-
-            dump($data);die;
         }
         $this->assign('admin', $admin);
         return $this->fetch();
