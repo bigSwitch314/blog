@@ -1,11 +1,10 @@
 <?php
 namespace app\admin\controller;
-
-use think\Controller;
 use app\admin\model\Cate as CateModel;
 use think\Db;
+use app\admin\controller\BaseController;
 
-class Cate extends Controller
+class Cate extends BaseController
 {
     public function lst()
     {

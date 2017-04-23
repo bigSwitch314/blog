@@ -1,11 +1,10 @@
 <?php
 namespace app\admin\controller;
-
-use think\Controller;
 use app\admin\model\Article as ArticleModel;
+use app\admin\controller\BaseController;
 use think\Db;
 
-class Article extends Controller
+class Article extends BaseController
 {
     public function lst()
     {
@@ -27,7 +26,7 @@ class Article extends Controller
                 'cateid'  => input('cateid'),
                 'time'    => time(),
             ];
-            $data['state'] = null != input('state')? input('state'): 0;
+            $data['state'] = !empty(input('state'))? 1: 0;
             if(!empty($_FILES['pic']['tmp_name'])){
                 $file = request()->file('pic');
                 $info = $file->move(ROOT_PATH.'public'.DS.'static/uploads');
@@ -64,7 +63,7 @@ class Article extends Controller
                 'cateid'   => input('cateid'),
                 'desc'  => input('desc')
             ];
-            $data['state'] = null != input('state')? input('state'): 0;
+            $data['state'] = !empty(input('state'))? 1: 0;
             if(!empty($_FILES['pic']['tmp_name'])){
                 //@unlink(SITE_URL.$article['pic']); //删除失败
                 $file = request()->file('pic');
@@ -77,9 +76,9 @@ class Article extends Controller
                 die;
             }
             if (Db::name('Article')->update($data)) {
-                $this->success('修改管理员成功！', 'lst');
+                $this->success('修改文章成功！', 'lst');
             } else {
-                $this->success('修改管理员失败！');
+                $this->success('修改文章失败！');
             }
         }
         $cateres = Db::name('cate')->select();

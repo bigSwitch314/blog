@@ -1,10 +1,11 @@
 <?php
 namespace app\admin\controller;
-use think\Controller;
 use app\admin\model\Admin as AdminModel;
+use app\admin\controller\BaseController;
 use think\Db;
+use think\Session;
 
-class Admin extends Controller
+class Admin extends BaseController
 {
     public function lst()
     {
@@ -18,9 +19,17 @@ class Admin extends Controller
         if (request()->isPost()) {
             $data = [
                 'username' => input('username'),
-                'password' => (input('password'))
+                'password' => input('password')
             ];
+            //数据验证
             $validate = \think\Loader::validate('Admin');
+            //密码加密前，只验证密码
+            if(!$validate->scene('checkpw')->check($data)){
+                $this->error($validate->getError());
+                die;
+            }
+            //密码加密后，不验证密码
+            $data['password'] = md5($data['password']);
             if(!$validate->scene('add')->check($data)){
                 $this->error($validate->getError());
                 die;
@@ -40,18 +49,35 @@ class Admin extends Controller
         $id = input('id');
         $admin = Db::name('admin')->find($id);
         if(request()->isPost()){
-            $password = input('password')? md5(input('password')): $admin['password'];
             $data = [
                 'id' => input('id'),
                 'username' => input('username'),
-                'password' => $password
+                'password' => input('password')
             ];
+            //数据验证
             $validate = \think\Loader::validate('Admin');
-            if(!$validate->scene('edit')->check($data)){
-                $this->error($validate->getError());
-                die;
+            //echo empty($data['password']);die;
+            if(empty($data['password'])){
+                $data['password'] = $admin['password'];
+                if(!$validate->scene('add')->check($data)){
+                    $this->error($validate->getError());
+                    die;
+                }
+            }else{
+                //密码加密前，只验证密码
+                if(!$validate->scene('checkpw')->check($data)){
+                    $this->error($validate->getError());
+                    die;
+                }
+                //密码加密后，不验证密码
+                $data['password'] = md5($data['password']);
+                if(!$validate->scene('add')->check($data)){
+                    $this->error($validate->getError());
+                    die;
+                }
             }
-            if(Db::name('admin')->update($data)){
+            $save = Db::name('admin')->update($data);
+            if(false !== $save){
                 $this->success('修改管理员成功！', 'lst');
             }else{
                 $this->success('修改管理员失败！');
@@ -75,6 +101,13 @@ class Admin extends Controller
             $this->error('初始化管理员不能删除！');
 
         }
+
+    }
+
+    public function logout()
+    {
+        Session::clear();
+        $this->success('退出成功！', 'login/index');
 
     }
 

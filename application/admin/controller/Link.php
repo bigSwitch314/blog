@@ -1,11 +1,10 @@
 <?php
 namespace app\admin\controller;
-
-use think\Controller;
 use app\admin\model\Link as LinkModel;
 use think\Db;
+use app\admin\controller\BaseController;
 
-class Link extends Controller
+class Link extends BaseController
 {
     public function lst()
     {
