@@ -21,7 +21,7 @@ class Article extends BaseController
                 'title'   => input('title'),
                 'author'  => input('author'),
                 'desc'    => input('desc'),
-                'keywords' => input('keywords'),
+                'keywords' => str_replace('，', ',', input('keywords')),
                 'content' => input('content'),
                 'cateid'  => input('cateid'),
                 'time'    => time(),
@@ -58,8 +58,8 @@ class Article extends BaseController
                 'id'    => input('id'),
                 'title' => input('title'),
                 'author'   => input('author'),
-                'keywords'   => input('keywords'),
                 'content'   => input('content'),
+                'keywords' => str_replace('，', ',', input('keywords')),
                 'cateid'   => input('cateid'),
                 'desc'  => input('desc')
             ];
