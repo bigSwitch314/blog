@@ -1,3 +1,6 @@
+<!--Basic Styles-->
+<link href="/static/admin/style/font-awesome.css" rel="stylesheet">
+
 <div class="right">
     <!--右侧各种广告-->
     <!--猜你喜欢-->
@@ -58,13 +61,16 @@
             <div id="default-searchbox" class="bdcs-main bdcs-clearfix">
                 <div id="bdcs-search-inline" class="bdcs-search bdcs-clearfix">
                     <form id="bdcs-search-form" autocomplete="off" class="bdcs-search-form" target="_blank"
-                          method="get" action=""><input type="hidden" value="10711555151249188672" name="s"> <input
-                            type="hidden" value="1" name="entry"> <input type="hidden" value="gbk" name="ie"> <input
+                          method="get" action="{:url('search/index')}">
+                        <input
                             type="text" placeholder="请输入关键词" id="bdcs-search-form-input"
-                            class="bdcs-search-form-input" name="q" autocomplete="off"
-                            style="line-height: 30px; width:220px;"> <input type="submit" value="搜索"
-                                                                            id="bdcs-search-form-submit"
-                                                                            class="bdcs-search-form-submit bdcs-search-form-submit-magnifier">
+                            class="bdcs-search-form-input" name="keywords" autocomplete="off" required="required"
+                            style="line-height: 30px; width:220px;">
+                        <label for="btn" >
+                            <input type="submit"  id="btn" style="display: none;" >
+                            <i class="fa fa-search" style="font-size: 22px;cursor: pointer;position:relative;top: 4px;color: #888888"></i>
+                        </label>
+
                     </form>
                 </div>
                 <div id="bdcs-search-sug" class="bdcs-search-sug" style="top: 552px; width: 239px;">

@@ -10,6 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
     <link href="__PUBLIC__/style/lady.css" type="text/css" rel="stylesheet"/>
     <script type='text/javascript' src='__PUBLIC__/style/ismobile.js'></script>
+
+
 </head>
 
 <body>
@@ -35,7 +37,7 @@
                     <?php
                         $arr = explode(',', $article['keywords']);
                         foreach($arr as $k=>$v){
-                            echo "<a href='#'>$v</a>";
+                            echo "<a href='".SITE_URL.'/index/article/searchtag/keywords/'.$v."'>".$v.'</a>';
                         }
                     ?>
                 </a></span>

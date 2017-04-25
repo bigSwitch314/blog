@@ -16,21 +16,19 @@
 <!--顶部通栏-->
 
 
-<div class="position"><a href="{:url('index/index')}">主页</a> > <a
-        href="{:url('cate/index', array('cateid'=>$cates['id']))}">{$cates.catename}</a> >
-</div>
+<div class="position"><span style="color: green; font-weight: bold;">标签：{$keywords}</span></div>
 <div style="margin-left:135px;">
-
     <?php
-        if(empty($articleres->items())){
+        if(empty($same_tag_article->items())){
     echo '未查询到结果！';
     }
     ?>
 </div>
+
 <div class="overall">
 
     <div class="left">
-        {volist name="articleres" id="vo"}
+        {volist name="same_tag_article" id="vo"}
         <div class="xnews2">
             <div class="pic"><a target="_blank" href="{:url('article/index', array('arid'=>$vo['id']))}"><img
                     src="{if condition=" $vo['pic'] neq ''"}
@@ -61,7 +59,7 @@
 
         <div class="pages">
             <div class="plist">
-                {$articleres->render()}
+                {$same_tag_article->render()}
             </div>
         </div>
     </div>
